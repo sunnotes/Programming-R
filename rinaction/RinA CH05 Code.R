@@ -83,6 +83,7 @@ z <- scale(roster[,2:4])
 score <- apply(z, 1, mean)                                            
 roster <- cbind(roster, score)
 
+
 y <- quantile(score, c(.8,.6,.4,.2))                                   
 roster$grade[score >= y[1]] <- "A"                                     
 roster$grade[score < y[1] & score >= y[2]] <- "B"
@@ -158,6 +159,14 @@ t(cars)
 
 options(digits=3)
 attach(mtcars)
+mtcars
 aggdata <-aggregate(mtcars, by=list(cyl,gear), 
     FUN=mean, na.rm=TRUE)
 aggdata
+
+
+aggdata1 <-aggregate(mtcars, by=list(cyl), 
+                    FUN=mean, na.rm=TRUE)
+aggdata1
+
+

@@ -5,6 +5,8 @@
 # install.packages(c('vcd', 'plotrix', 'sm', 'vioplot'))         #
 #----------------------------------------------------------------#
 
+install.packages(c('vcd', 'plotrix', 'sm', 'vioplot')) 
+
 # pause after each graph
 par(ask = TRUE)
 
@@ -50,6 +52,9 @@ barplot(counts, main = "Grouped Bar Plot", xlab = "Treatment",
 # Listing 6.3 - Mean bar plots
 
 states <- data.frame(state.region, state.x77)
+
+states
+
 means <- aggregate(states$Illiteracy, 
     by = list(state.region), 
     FUN = mean)

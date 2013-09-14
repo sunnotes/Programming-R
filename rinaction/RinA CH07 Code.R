@@ -5,7 +5,8 @@
 # install.packages(c('npmc', 'ggm', 'gmodels', 'vcd', 'Hmisc',       #
 #     'pastecs', 'psych', 'doBy', 'reshape'))                        #
 #---------------------------------------------------------------------
-
+ install.packages(c('npmc', 'ggm', 'gmodels', 'vcd', 'Hmisc',       #
+     'pastecs', 'psych', 'doBy', 'reshape'))  
 vars <- c("mpg", "hp", "wt")
 head(mtcars[vars])
 
@@ -121,9 +122,14 @@ gtable(addmargins(prop.table(mytable, c(1, 2)), 3)) * 100
 # Listing 7.13 - Chis-square test of independence
 
 library(vcd)
+           
+Arthritis
+           
 mytable <- xtabs(~Treatment+Improved, data=Arthritis)
+mytable
 chisq.test(mytable)
 mytable <- xtabs(~Improved+Sex, data=Arthritis)
+mytable           
 chisq.test(mytable)
 
 # Fisher's exact test
