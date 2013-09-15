@@ -9,6 +9,8 @@
 # Listing 12.1 - t-test vs. oneway permutation test for the 
 # hypothetical data in table 12.1
 
+install.packages(c('coin','multcomp', 'vcd', 'MASS','lmPerm', 'boot'))                                     
+
 library(coin)
 score <- c(40, 57, 45, 55, 58, 57, 64, 55, 62, 65)
 treatment <- factor(c(rep("A", 5), rep("B", 5)))
