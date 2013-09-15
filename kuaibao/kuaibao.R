@@ -61,6 +61,10 @@ user <- cbind2(usermerge,usertotal,useractiverate)
 user
 summary(user)
 
+useractiveratetimeseries = ts(user[6])
+useractiveratetimeseries
+plot.ts(useractiveratetimeseries)
+
 ##fund 
 fund$date
 summary(fund)
