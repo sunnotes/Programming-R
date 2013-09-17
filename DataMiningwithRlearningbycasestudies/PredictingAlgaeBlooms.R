@@ -75,10 +75,8 @@ stripplot(season ~ a3|minO2,
 library(DMwR)
 data(algae)
 
-
+#???????????????
 algae[!complete.cases(algae),]
-
-
 nrow(algae[!complete.cases(algae),])
 
 
