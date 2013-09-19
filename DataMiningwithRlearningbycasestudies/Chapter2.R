@@ -247,8 +247,8 @@ rt.predictions.a1 <- predict(rt.a1,algae)
 
 regr.eval(algae[,'a1'],rt.predictions.a1,train.y=algae[,'a1'])
 
-
-old.par <- par(mfrow=c(1,2))
+old.par <- par(mfrow=c(1,1))
+par(mfrow=c(1,2))
 plot(lm.predictions.a1,algae[,'a1'],main="Linear Model",
      xlab="Predictions",ylab="True Values")
 abline(0,1,lty=2)
