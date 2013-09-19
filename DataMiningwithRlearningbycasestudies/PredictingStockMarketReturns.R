@@ -26,14 +26,19 @@ x1["2000-03-27/"]
 x1["2000-02-26/2000-03-03"]
 x1["/20000103"]
 
+round(rnorm(25),3)
 
 mts.vals <- matrix(round(rnorm(25),2),5,5)
+mts.vals
 colnames(mts.vals) <- paste('ts',1:5,sep='')
 mts <- xts(mts.vals,as.POSIXct(c('2003-01-01','2003-01-04',
                                  '2003-01-05','2003-01-06','2003-02-16')))
 mts
 mts["2003-01",c("ts2","ts5")]
 index(mts)
+
+time(mts)
+
 coredata(mts)
 
 
@@ -118,6 +123,8 @@ T.ind <- function(quotes,tgt.margin=0.025,n.days=10) {
   if (is.xts(quotes)) xts(x,time(quotes)) else x
 }
 
+
+library(quantmod)
 
 candleChart(last(GSPC,'3 months'),theme='white',TA=NULL)
 avgPrice <- function(p) apply(HLC(p),1,mean)
