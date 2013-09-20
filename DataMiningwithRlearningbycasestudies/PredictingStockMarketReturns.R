@@ -126,18 +126,13 @@ T.ind <- function(quotes,tgt.margin=0.025,n.days=10) {
 
 library(quantmod)
 
+
 candleChart(last(GSPC,'3 months'),theme='white',TA=NULL)
 avgPrice <- function(p) apply(HLC(p),1,mean)
 addAvgPrice <- newTA(FUN=avgPrice,col=1,legend='AvgPrice')
 addT.ind <- newTA(FUN=T.ind,col='red',legend='tgtRet')
 addAvgPrice(on=1)
-
-
-
-
-
-
-()
+addT.ind()
 
 
 

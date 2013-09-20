@@ -1,0 +1,7 @@
+{
+    "installOptions" : {
+        "installDependencies" : true,
+        "installFromRepository" : false,
+        "libraryPath" : "D:/DEV/DEV_Tools/R-3.0.1/library"
+    }
+}

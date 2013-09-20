@@ -23,12 +23,17 @@ summary(sales)
 nlevels(sales$ID)
 nlevels(sales$Prod)
 
+?nlevels
+
 
 length(which(is.na(sales$Quant) & is.na(sales$Val)))
 
+length(which(is.na(sales$Quant) | is.na(sales$Val)))
 
 sum(is.na(sales$Quant) & is.na(sales$Val))
 
+
+table(sales$Insp)
 
 table(sales$Insp)/nrow(sales)*100
 

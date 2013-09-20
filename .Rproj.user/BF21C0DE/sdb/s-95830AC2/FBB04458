@@ -1,0 +1,15 @@
+{
+    "contents" : "\n\n#This file write for statistic and analysis data of Kuaibao\n\ninstall.packages(\"ggplot2\")\n\nuserbase <- 373\n\n\n#connect data\n\nlibrary(RODBC)\ndetach('packages:RODBC')\nconn <- odbcConnect('mysql_data')\n\n#messagenum\nmessage <- sqlQuery(conn,'SELECT DATE(msgtime) as date ,COUNT(*) as messagenum \n                    FROM message GROUP BY DATE(msgtime)')\nmessage\n\n\n#user\nuseractive <- sqlQuery(conn,'SELECT DATE(msgtime) as date ,\n                      COUNT(DISTINCT(fakeid)) as activeuser\n                       FROM  message GROUP BY DATE(msgtime)')\nuseractive\n\nplot(useractive$date,useractive$activeuser)\n\n\n#fund\nfund <- sqlQuery(conn,\"select date,profit,rate FROM fund order by updatetime asc\")\nfund\n\n##subscribe\nsubscribe <- sqlQuery(conn, 'SELECT DATE(msgtime) AS date,COUNT(*) AS subscribe  \n                      FROM message WHERE event =\\'subscribe\\'  GROUP BY DATE(msgtime)')\nsubscribe\n\n##unsubscribe\nunsubscribe <- sqlQuery(conn, 'SELECT DATE(msgtime) AS date,COUNT(*) AS unsubscribe \n                        FROM message WHERE event =\\'unsubscribe\\'  GROUP BY DATE(msgtime)')\nunsubscribe\n\n##userincrease\nuserincrease <- subscribe$subscribe -unsubscribe$unsubscribe\nuserincrease\n\n#usertotal\nusertotal <- cumsum(userincrease) + userbase;\nusertotal\n\nusermerge <- merge(merge(subscribe,unsubscribe,c('date')),useractive,c('date'))\nusermerge\n\nuseractiverate <- useractive[2] / usertotal\nuseractiverate\n\n#user\nuser <- cbind2(usermerge,usertotal,useractiverate)\nuser\nsummary(user)\n\n\n\n##fund \nfund$date\nsummary(fund)\n\n\n\n\n#statistic\nuseractiveratetimeseries = ts(user[6])\nuseractiveratetimeseries\nplot.ts(useractiveratetimeseries)\n\nplot(fund$date, fund$profit,type='b')\n\nplot( user$useractiverate,user$date,type='b')\n\nboxplot(fund$profit)\nhist(fund$profit)\n\nfund.profit <- scale(fund$profit)\nfund.profit\nplot(fund.profit)\n\n\n\n\n\n\nchinese <-'中文'\nchinese",
+    "created" : 1379246771127.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3376319107",
+    "id" : "FBB04458",
+    "lastKnownWriteTime" : 1379259673,
+    "path" : "D:/DEV/WorkSpaces/Programming-R/kuaibao/kuaibao.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
