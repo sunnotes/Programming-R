@@ -133,7 +133,7 @@ addAvgPrice <- newTA(FUN=avgPrice,col=1,legend='AvgPrice')
 addT.ind <- newTA(FUN=T.ind,col='red',legend='tgtRet')
 addAvgPrice(on=1)
 addT.ind()
-
+addT.ind(on=1)
 
 
 myATR <- function(x) ATR(HLC(x))[,'atr']
@@ -149,6 +149,7 @@ myMFI <- function(x) MFI(x[,c("High","Low","Close")], x[,"Volume"])
 mySAR <- function(x) SAR(x[,c('High','Close')]) [,1]
 myVolat <- function(x) volatility(OHLC(x),calc="garman")[,1]
 
+install.packages(randomForest)
 
 library(randomForest)
 data.model <- specifyModel(T.ind(GSPC) ~ Delt(Cl(GSPC),k=1:10) + 
@@ -161,7 +162,6 @@ set.seed(1234)
 rf <- buildModel(data.model,method='randomForest',
                  training.per=c(start(GSPC),index(GSPC["1999-12-31"])),
                  ntree=50, importance=T)
-
 
 ex.model <- specifyModel(T.ind(IBM) ~ Delt(Cl(IBM),k=1:3))
 data <- modelData(ex.model,data.window=c('2009-01-01','2009-08-10'))
