@@ -37,6 +37,10 @@ ALLb$BT <- factor(ALLb$BT)
 ALLb$mol.bio <- factor(ALLb$mol.bio)
 
 
+##本地存储数据文件
+save(ALLb,file="myALL.Rdata")
+
+
 ###################################################
 ### Exploring the data set
 ###################################################
