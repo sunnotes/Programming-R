@@ -10,7 +10,6 @@ userbase <- 373
 #connect data
 
 library(RODBC)
-detach('packages:RODBC')
 conn <- odbcConnect('mysql_data')
 
 
@@ -90,6 +89,10 @@ print(p)
 summary(user)
 
 
+qplot(height, data = message, geom = c("density"), 
+      facets = message.type ~ ., fill = message.type)
+
+
 
 
 
@@ -100,3 +103,16 @@ summary(user)
 message <- sqlQuery(conn,'SELECT DATE(msgtime) as date ,COUNT(*) as messagenum 
                     FROM message GROUP BY DATE(msgtime)')
 message
+
+
+#message <- sqlQuery(conn,'SELECT * FROM message')
+#head(message)
+
+
+
+
+
+
+
+
+
