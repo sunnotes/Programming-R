@@ -10,10 +10,10 @@ qplot(displ, hwy, data = mpg, colour = factor(cyl))
 # geoms like lines (left) or bars (right).  Neither of these geoms
 # makes sense for this data, but they are still grammatically valid.
 qplot(displ, hwy, data=mpg, colour=factor(cyl), geom="line") + 
-  opts(drop = "legend_box")
+  theme(drop = "legend_box")
 qplot(displ, hwy, data=mpg, colour=factor(cyl), geom="bar", 
   stat="identity", position = "identity") + 
-  opts(drop = "legend_box")
+  theme(drop = "legend_box")
 
 # More complicated plots don't have their own names.  This plot takes
 # Figure~\ref{fig:mpg} and adds a regression line to each group.  What
