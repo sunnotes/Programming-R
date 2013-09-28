@@ -18,6 +18,13 @@ sdx
 # Listing 5.2 - Generating pseudo-random numbers from 
 # a uniform distribution
 
+x<-pretty(c(-3,3),30)
+y<-rnorm(x)
+y
+
+?pretty
+
+
 runif(5)
 runif(5)
 set.seed(1234)                                                     
@@ -55,6 +62,10 @@ c
 log(c)
 mean(c)
 
+
+c <- runif(10000)
+mean(c)
+
 # Listing 5.5 - Applying a function to the rows 
 # (columns) of a matrix
 
@@ -80,9 +91,10 @@ roster <- data.frame(Student, Math, Science, English,
     stringsAsFactors=FALSE)
     
 z <- scale(roster[,2:4]) 
+z
 score <- apply(z, 1, mean)                                            
 roster <- cbind(roster, score)
-
+roster 
 
 y <- quantile(score, c(.8,.6,.4,.2))                                   
 roster$grade[score >= y[1]] <- "A"                                     
@@ -170,3 +182,4 @@ aggdata1 <-aggregate(mtcars, by=list(cyl),
 aggdata1
 
 
+install.packages(reshape)
