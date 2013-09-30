@@ -4,7 +4,7 @@
 
 #install.packages("ggplot2")
 library(ggplot2)
-userbase <- 373
+userbase <- 506
 
 
 #connect data
@@ -99,7 +99,30 @@ qplot(height, data = message, geom = c("density"),
 
 
 ###########message data analysis
+
+##data
+
+messagedata <- sqlQuery(conn,'
+SELECT   id, 
+	userid, 
+	sex,  
+	DATE(msgtime) AS date, HOUR(msgtime) AS hour,
+	type_detail
+	FROM 
+	test.message WHERE msgtime !=\'\' and msg_type =1 
+      and type_detail =\'compute\' or  type_detail =\'query\'                    
+                        ')
+
+head(messagedata)
+
+qplot(date,hour,data=messagedata,colour=type_detail,alpha = 0.01,geom='jitter')
+
+
+table(messagedata$date,messagedata$hour,messagedata$type_detail)
+
+
 #messagenum
+
 message <- sqlQuery(conn,'SELECT DATE(msgtime) as date ,COUNT(*) as messagenum 
                     FROM message GROUP BY DATE(msgtime)')
 message
