@@ -1,5 +1,5 @@
 
-# The effect of changing themes.  (Left) The default grey theme with
+# The effect of changing theme.  (Left) The default grey theme with
 # grey background and white gridlines.  (Right) the alternative black
 # and white theme with white background and grey gridlines.  Notice how
 # the bars, data elements, are identical in both plots.
@@ -8,7 +8,7 @@ last_plot() + theme_bw()
 
 hgram <- qplot(rating, data = movies, binwidth = 1)
 
-# Themes affect the plot when they are drawn, 
+# theme affect the plot when they are drawn, 
 # not when they are created
 hgram
 previous_theme <- theme_set(theme_bw())
@@ -23,57 +23,57 @@ theme_set(previous_theme)
 
 # Changing the appearance of the plot title.
 hgramt <- hgram + 
-  opts(title = "This is a histogram")
+  theme(title = "This is a histogram")
 hgramt
-hgramt + opts(plot.title = theme_text(size = 20))
-hgramt + opts(plot.title = theme_text(size = 20, 
+hgramt + theme(plot.title = element_text(size = 20))
+hgramt + theme(plot.title = element_text(size = 20, 
   colour = "red"))
-hgramt + opts(plot.title = theme_text(size = 20, 
+hgramt + theme(plot.title = element_text(size = 20, 
   hjust = 0))
-hgramt + opts(plot.title = theme_text(size = 20, 
+hgramt + theme(plot.title = element_text(size = 20, 
   face = "bold"))
-hgramt + opts(plot.title = theme_text(size = 20, 
+hgramt + theme(plot.title = element_text(size = 20, 
   angle = 180))
 
 # Changing the appearance of lines and segments in the plot.
-hgram + opts(panel.grid.major = theme_line(colour = "red"))
-hgram + opts(panel.grid.major = theme_line(size = 2))
-hgram + opts(panel.grid.major = theme_line(linetype = "dotted"))
-hgram + opts(axis.line = theme_segment())
-hgram + opts(axis.line = theme_segment(colour = "red"))
-hgram + opts(axis.line = theme_segment(size = 0.5, 
+hgram + theme(panel.grid.major = theme_line(colour = "red"))
+hgram + theme(panel.grid.major = theme_line(size = 2))
+hgram + theme(panel.grid.major = theme_line(linetype = "dotted"))
+hgram + theme(axis.line = theme_segment())
+hgram + theme(axis.line = theme_segment(colour = "red"))
+hgram + theme(axis.line = theme_segment(size = 0.5, 
   linetype = "dashed"))
 
 # Changing the appearance of the plot and panel background
-hgram + opts(plot.background = theme_rect(fill = "grey80", 
+hgram + theme(plot.background = theme_rect(fill = "grey80", 
   colour = NA))
-hgram + opts(plot.background = theme_rect(size = 2))
-hgram + opts(plot.background = theme_rect(colour = "red"))
-hgram + opts(panel.background = theme_rect())
-hgram + opts(panel.background = theme_rect(colour = NA))
-hgram + opts(panel.background = 
+hgram + theme(plot.background = theme_rect(size = 2))
+hgram + theme(plot.background = theme_rect(colour = "red"))
+hgram + theme(panel.background = theme_rect())
+hgram + theme(panel.background = theme_rect(colour = NA))
+hgram + theme(panel.background = 
   theme_rect(linetype = "dotted"))
 
 # Progressively removing non-data elements from a plot with
 # \f{theme_blank}.
 hgramt
-last_plot() + opts(panel.grid.minor = theme_blank())
-last_plot() + opts(panel.grid.major = theme_blank())
-last_plot() + opts(panel.background = theme_blank())
+last_plot() + theme(panel.grid.minor = theme_blank())
+last_plot() + theme(panel.grid.major = theme_blank())
+last_plot() + theme(panel.background = theme_blank())
 last_plot() + 
-  opts(axis.title.x = theme_blank(), 
+  theme(axis.title.x = theme_blank(), 
        axis.title.y = theme_blank())
-last_plot() + opts(axis.line = theme_segment())
+last_plot() + theme(axis.line = theme_segment())
 
 # A bar chart and scatterplot created after a new visually consistent
 # (if ugly!) theme has been applied.
 old_theme <- theme_update(
   plot.background = theme_rect(fill = "#3366FF"),
   panel.background = theme_rect(fill = "#003DF5"),
-  axis.text.x = theme_text(colour = "#CCFF33"),
-  axis.text.y = theme_text(colour = "#CCFF33", hjust = 1),
-  axis.title.x = theme_text(colour = "#CCFF33", face = "bold"),
-  axis.title.y = theme_text(colour = "#CCFF33", face = "bold", 
+  axis.text.x = element_text(colour = "#CCFF33"),
+  axis.text.y = element_text(colour = "#CCFF33", hjust = 1),
+  axis.title.x = element_text(colour = "#CCFF33", face = "bold"),
+  axis.title.y = element_text(colour = "#CCFF33", face = "bold", 
    angle = 90)
 )
 qplot(cut, data = diamonds, geom="bar")
@@ -134,7 +134,7 @@ dev.off()
 csmall <- c + 
   theme_gray(9) + 
   labs(x = NULL, y = NULL) + 
-  opts(plot.margin = unit(rep(0, 4), "lines"))
+  theme(plot.margin = unit(rep(0, 4), "lines"))
 
 pdf("polishing-subplot-2.pdf", width = 4, height = 4)
 b

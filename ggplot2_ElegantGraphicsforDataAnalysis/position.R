@@ -1,7 +1,7 @@
 
 mpg2 <- subset(mpg, cyl != 5 & drv %in% c("4", "f"))
 
-qplot(cty, hwy, data = mpg2) + facet_grid(. ~ .)
+qplot(cty, hwy, data = mpg2) + facet_null()
 
 qplot(cty, hwy, data = mpg2) + facet_grid(. ~ cyl)
 
@@ -67,7 +67,7 @@ dplot <- ggplot(subset(diamonds, color %in% c("D","E","G","J")),
   scale_x_log10(breaks = xmaj, labels = xmaj, minor = xmin) + 
   scale_y_log10(breaks = ymaj, labels = ymaj, minor = ymin) + 
   scale_colour_hue(limits = levels(diamonds$color)) + 
-  opts(legend.position = "none")
+  theme(legend.position = "none")
 
 dplot + geom_point()
 dplot + geom_point() + facet_grid(. ~ color)
