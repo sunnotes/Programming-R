@@ -83,6 +83,9 @@ p + geom_point(aes(colour = "darkblue"))
 qplot(mpg, wt, data=mtcars, colour = I("darkblue"))
 qplot(mpg, wt, data=mtcars, colour = "darkblue")
 
+install.packages('nlme')
+library('nlme')
+
 p <- ggplot(Oxboys, aes(age, height, group = Subject)) + 
   geom_line()
 
