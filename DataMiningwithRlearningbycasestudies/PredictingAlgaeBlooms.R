@@ -158,6 +158,8 @@ data(algae)
 algae <- algae[-manyNAs(algae), ]
 clean.algae <- knnImputation(algae, k = 10)
 
+head(clean.algae)
+dim(clean.algae )
 
 lm.a1 <- lm(a1 ~ .,data=clean.algae[,1:12])
 
