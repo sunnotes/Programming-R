@@ -88,13 +88,24 @@ library('nlme')
 
 p <- ggplot(Oxboys, aes(age, height, group = Subject)) + 
   geom_line()
-
+p
 # (Left) Correctly specifying {\tt group = Subject} produces one line
 # per subject.  (Right) A single line connects all observations.  This
 # pattern is characteristic of an incorrect grouping aesthetic, and is
 # what we see if the group aesthetic is omitted, which in this case is
 # equivalent to {\tt group = 1}.
 data(Oxboys, package="nlme")
+
+
+p<-ggplot(mtcars,aes(x=mpg,y=wt))
+p+geom_point()
+
+p+geom_point(aes(colour=factor(cyl)))
+
+p+geom_point(aes(y=disp))
+
+p+geom_point(aes(y=NULL))
+
 qplot(age, height, data=Oxboys, group = Subject, geom="line")
 qplot(age, height, data=Oxboys, geom="line")
 
@@ -147,6 +158,7 @@ qplot(x, y, data = df, colour = colour, size = I(5)) +
 # the same outline as the original.
 qplot(color, data = diamonds)
 qplot(color, data = diamonds, fill = cut)
+
 
 ggplot(diamonds, aes(carat)) + 
   geom_histogram(aes(y = ..density..), binwidth = 0.1)

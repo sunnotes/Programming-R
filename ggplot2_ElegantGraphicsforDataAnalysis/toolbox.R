@@ -51,6 +51,7 @@ depth_dist + geom_freqpoly(aes(y = ..density.., colour = cut),
 # the group aesthetic must be set to get multiple boxplots.  Here {\tt
 # group = round\_any(carat, 0.1, floor)} is used to get a boxplot for
 # each 0.1 carat bin.
+library(plyr)
 qplot(cut, depth, data=diamonds, geom="boxplot")
 qplot(carat, depth, data=diamonds, geom="boxplot", 
   group = round_any(carat, 0.1, floor), xlim = c(0, 3))
@@ -81,9 +82,13 @@ norm + geom_point(shape = ".") # Pixel sized
 
 # Using alpha blending to alleviate overplotting in sample data from a
 # bivariate normal.  Alpha values from left to right: 1/3, 1/5, 1/10.
-norm + geom_point(colour = alpha("black", 1/3))
-norm + geom_point(colour = alpha("black", 1/5))
-norm + geom_point(colour = alpha("black", 1/10))
+
+opar <- par(no.readonly = TRUE)
+par(mfrow=c(1,2))
+
+norm + geom_point(colour = "black", alpha =1/3)
+norm + geom_point(colour = "black", alpha =1/5)
+norm + geom_point(colour = "black", alpha =1/10)
 
 # A plot of table vs. depth from the diamonds data, showing the use of
 # jitter and alpha blending to alleviate overplotting in discrete data.
@@ -105,7 +110,7 @@ td + geom_jitter(position = jit, colour = alpha("black", 1/200))
 # and right column {\tt binwidth = c(0.02, 200)}.  Legends have been
 # omitted to save space.
 d <- ggplot(diamonds, aes(carat, price)) + xlim(1,3) +
-  opts(legend.position = "none")
+  theme(legend.position = "none")
 d + stat_bin2d()
 d + stat_bin2d(bins = 10)
 d + stat_bin2d(binwidth=c(0.02, 200))
@@ -117,7 +122,7 @@ d + stat_binhex(binwidth=c(0.02, 200))
 # (Top) Image displays of the density; (bottom) point and contour based
 # displays.
 d <- ggplot(diamonds, aes(carat, price)) + xlim(1,3) + 
-  opts(legend.position = "none")
+  theme(legend.position = "none")
 d + geom_point() + geom_density2d()
 d + stat_density2d(geom = "point", aes(size = ..density..), 
  contour = F) + scale_area(to = c(0.2, 1.5))
@@ -136,7 +141,7 @@ qplot(long, lat, data = big_cities) + borders("state", size = 0.5)
 tx_cities <- subset(us.cities, country.etc == "TX")
 ggplot(tx_cities, aes(long, lat)) +
   borders("county", "texas", colour = "grey70") +
-  geom_point(colour = alpha("black", 0.5))
+  geom_point(colour = "black", alpha=0.5)
 
 # Two choropleth maps showing number of assaults (left) and the ratio
 # of assaults to murders (right).
@@ -255,22 +260,30 @@ presidential <- presidential[-(1:3), ]
 
 yrng <- range(economics$unemploy)
 xrng <- range(economics$date)
-unemp + geom_vline(aes(xintercept = start), data = presidential)
+unemp + geom_vline(aes(xintercept = as.numeric(start)), data = presidential)
+
+
+library(scales)
 unemp + geom_rect(aes(NULL, NULL, xmin = start, xmax = end, 
   fill = party), ymin = yrng[1], ymax = yrng[2], 
   data = presidential) + scale_fill_manual(values = 
   alpha(c("blue", "red"), 0.2))
 last_plot() + geom_text(aes(x = start, y = yrng[1], label = name), 
   data = presidential, size = 3, hjust = 0, vjust = 0)
+
+
+
 caption <- paste(strwrap("Unemployment rates in the US have 
   varied a lot over the years", 40), collapse="\n")
 unemp + geom_text(aes(x, y, label = caption), 
   data = data.frame(x = xrng[2], y = yrng[2]), 
   hjust = 1, vjust = 1, size = 4)
 
+
 highest <- subset(economics, unemploy == max(unemploy))
 unemp + geom_point(data = highest, 
   size = 3, colour = alpha("red", 0.5))
+
 
 # Using size to display weights.  No weighting (left), weighting by
 # population (centre) and by area (right).
