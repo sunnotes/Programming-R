@@ -1,0 +1,6 @@
+1+2
+
+dnorm(0)
+
+
+summary(lm(dist ~ speed, data = cars))  # 一个回归
