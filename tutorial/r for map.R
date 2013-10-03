@@ -75,6 +75,8 @@ china_mapdata<-join(china_map1, xs, type = "full") #合并两个数据框
 #再看看
 head(china_mapdata)
 
+china_mapdata$NAME<-iconv(china_mapdata[[14]], from = "gbk", to = "utf-8")
+
 #下面用这个新的数据框来画中国地图
 ggplot(china_mapdata, aes(x = long, y = lat, group = group,fill=NAME))+
   geom_polygon( )+
@@ -121,7 +123,7 @@ head(china_pop)
 sum(china_pop$pop, na.rm = TRUE)
 
 ggplot(china_pop, aes(x = long, y = lat, group = group,fill=pop))+
-  geom_polygon(aes(x = long, y = lat, group = group,fill=pop))+
+  geom_polygon()+
   geom_path(colour = "grey40")+
   scale_fill_continuous(low = 'yellowgreen',high ='red2',
                       guide = "colorbar")
