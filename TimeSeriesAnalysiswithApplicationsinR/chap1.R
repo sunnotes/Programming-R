@@ -1,3 +1,5 @@
+#install.packages("TSA")
+
 # Exhibit 1.1
 win.graph(width=4.875, height=2.5,pointsize=8)
 data(larain)

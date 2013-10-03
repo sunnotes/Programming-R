@@ -1,5 +1,18 @@
 # A Minimal Example for Markdown
 
+
+\documentclass{cctart}
+\usepackage{geometry}
+\geometry{left=3cm,right=3cm,top=2.5cm,bottom=2cm}
+\begin{document}
+<<setup, echo = FALSE, results= 'hide', message = FALSE>>=
+require(xtable)
+require(MASS)
+opts_chunk$set(warning=FALSE,message=FALSE,fig.align='left')
+ opts_knit$set(root.dir ="H:/Skydrive/")
+options(width = 98)
+@
+
 This is a minimal example of using **knitr** to produce an _HTML_ page from _Markdown_.
 
 ## R code chunks

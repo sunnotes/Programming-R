@@ -184,6 +184,18 @@ hljs.initHighlightingOnLoad();
 <body>
 <h1>A Minimal Example for Markdown</h1>
 
+<p>\documentclass{cctart}
+\usepackage{geometry}
+\geometry{left=3cm,right=3cm,top=2.5cm,bottom=2cm}
+\begin{document}
+&lt;<setup, echo = FALSE, results= 'hide', message = FALSE>&gt;=
+require(xtable)
+require(MASS)
+opts_chunk$set(warning=FALSE,message=FALSE,fig.align=&#39;left&#39;)
+ opts_knit$set(root.dir =&ldquo;H:/Skydrive/&rdquo;)
+options(width = 98)
+@</p>
+
 <p>This is a minimal example of using <strong>knitr</strong> to produce an <em>HTML</em> page from <em>Markdown</em>.</p>
 
 <h2>R code chunks</h2>

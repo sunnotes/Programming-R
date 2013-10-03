@@ -1,5 +1,7 @@
 # A Minimal Example for Markdown
 
+
+
 This is a minimal example of using **knitr** to produce an _HTML_ page from _Markdown_.
 
 ## R code chunks

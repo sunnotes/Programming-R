@@ -1,5 +1,15 @@
+\documentclass{cctart}
+\usepackage{geometry}
+\geometry{left=3cm,right=3cm,top=2.5cm,bottom=2cm}
+\begin{document}
+<<setup, echo = FALSE, results= 'hide', message = FALSE>>=
+@
+
 Title
 ========================================================
+
+
+
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring web pages (click the **MD** toolbar button for help on Markdown).
 
