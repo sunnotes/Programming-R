@@ -3,21 +3,9 @@ Title
 
 
 
-```{r}
-suppressPackageStartupMessages(library(googleVis))
-T <- gvisTable(Exports, options = list(width = 200, height = 280))
-G <- gvisGeoChart(Exports, locationvar = "Country", colorvar = "Profit", 
-                  options = list(width = 360, height = 280, dataMode = "regions"))
-TG <- gvisMerge(T, G, horizontal = TRUE, tableOptions = "bgcolor=\"#CCCCCC\" cellspacing=10")
+<<mychunk, cache=TRUE, eval=FALSE, dpi=100,include=FALSE>>=
+@
 
-print(TG, "chart")
-```
-
-
-* Item 1
-* Item 2
-  * Item 2a
-  * Item 2b
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring web pages (click the **MD** toolbar button for help on Markdown).
 
@@ -33,3 +21,12 @@ You can also embed plots, for example:
 plot(cars)
 ```
 
+Header 1
+=========================
+
+Header 2
+-------------------------
+
+### Header 3
+
+#### Header 4

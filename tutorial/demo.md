@@ -3,33 +3,46 @@ Title
 
 
 
-```{r}
-suppressPackageStartupMessages(library(googleVis))
-T <- gvisTable(Exports, options = list(width = 200, height = 280))
-G <- gvisGeoChart(Exports, locationvar = "Country", colorvar = "Profit", 
-                  options = list(width = 360, height = 280, dataMode = "regions"))
-TG <- gvisMerge(T, G, horizontal = TRUE, tableOptions = "bgcolor=\"#CCCCCC\" cellspacing=10")
+<<mychunk, cache=TRUE, eval=FALSE, dpi=100,include=FALSE>>=
+@
 
-print(TG, "chart")
-```
-
-
-* Item 1
-* Item 2
-  * Item 2a
-  * Item 2b
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring web pages (click the **MD** toolbar button for help on Markdown).
 
 When you click the **Knit HTML** button a web page will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
-```{r}
+
+```r
 summary(cars)
 ```
 
+```
+##      speed           dist    
+##  Min.   : 4.0   Min.   :  2  
+##  1st Qu.:12.0   1st Qu.: 26  
+##  Median :15.0   Median : 36  
+##  Mean   :15.4   Mean   : 43  
+##  3rd Qu.:19.0   3rd Qu.: 56  
+##  Max.   :25.0   Max.   :120
+```
+
+
 You can also embed plots, for example:
 
-```{r fig.width=7, fig.height=6}
+
+```r
 plot(cars)
 ```
 
+![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2.png) 
+
+
+Header 1
+=========================
+
+Header 2
+-------------------------
+
+### Header 3
+
+#### Header 4

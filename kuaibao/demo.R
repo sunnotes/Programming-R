@@ -1,5 +1,80 @@
 # --ggplot2--
 
+suppressPackageStartupMessages(library(googleVis))
+T <- gvisTable(Exports, options = list(width = 200, height = 280))
+G <- gvisGeoChart(Exports, locationvar = "Country", colorvar = "Profit", 
+                  options = list(width = 360, height = 280, dataMode = "regions"))
+TG <- gvisMerge(T, G, horizontal = TRUE, tableOptions = "bgcolor=\"#CCCCCC\" cellspacing=10")
+
+print(TG, "chart")
+
+
+#数据
+values=c(3164,1514,199)
+#对应标签
+labels=c('','女性','未知')
+#自定义对应颜色显示，这里我自己选用的是circos set3-9配色方案，没有使用ggplot配置的
+colours=c("#8dd3c7",  "#fb8072", "#fdb462")
+#每个数据折算为百分比后的数值（已经带上%号）
+percent_str <- paste(round(values/sum(values) * 100,2), "%", sep="")
+#建立名为values的matrix
+values <- data.frame(Percentage = round(values/sum(values) * 100,1), Type = labels,percent=percent_str )
+#绘图第一步，得figure2
+values$Percentage
+ggplot(values, aes(x = " " ,y = Percentage, fill = Type)) +  geom_bar() 
+pie <- ggplot(values, aes(x = "" ,y = Percentage, fill = Type)) +  geom_bar(width = 3) 
+#可以理解为图形扭曲为圆形，从而完成终产品figure1
+
+pie = pie + coord_polar("y")
+#清空坐标名优化，并给图注填上题目为“Types”。
+pie = pie + xlab('') + ylab('') + labs(fill="Types")
+#按指定顺序添加图注并按照你设定的颜色上色
+#pie + scale_fill_manual(values = colours) 
+#只会得到figure， 图注里是按照字母表顺序排序而非事先指定顺序，这样明显图注与实际情况有严重出入，如figure3
+
+#应该如下行添加labels这列参数
+pie + scale_fill_manual(values = colours,labels = labels)
+
+
+
+
+
+head(mpg)
+
+ggplot(mpg, aes(x = factor(1), fill = factor(class))) +
+  geom_bar(width = 1)+
+  coord_polar(theta = "y") 
+
+
+
+
+#数据
+values=c(3164,1514,199)
+#对应标签
+labels=c("MALE","FEMALE","UNKOWN")
+#自定义对应颜色显示，这里我自己选用的是circos set3-9配色方案，没有使用ggplot配置的
+colours=c( "#80b1d3",  "#b3de69", "#d9d9d9")
+#每个数据折算为百分比后的数值（已经带上%号）
+percent_str <- paste(round(values/sum(values) * 100,1), "%", sep="")
+#建立名为values的matrix
+values <- data.frame(Percentage = round(values/sum(values) * 100,1), Type = labels,percent=percent_str )
+#绘图第一步，得figure2
+
+pie <- ggplot(values, aes(x = "" ,y = Percentage, fill = Type)) +  geom_bar(width = 3) 
+#可以理解为图形扭曲为圆形，从而完成终产品figure1
+
+pie = pie + coord_polar("y")
+#清空坐标名优化，并给图注填上题目为“Types”。
+pie = pie + xlab('') + ylab('') + labs(fill="Types")
+#按指定顺序添加图注并按照你设定的颜色上色
+#pie + scale_fill_manual(values = colours) 
+#只会得到figure， 图注里是按照字母表顺序排序而非事先指定顺序，这样明显图注与实际情况有严重出入，如figure3
+
+#应该如下行添加labels这列参数
+pie + scale_fill_manual(values = colours,labels = labels)
+
+
+
 
 #R代码如下：
 # 加载所需扩展包
