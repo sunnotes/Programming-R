@@ -1,5 +1,5 @@
 
-`r opts_chunk$set(fig.width=8, fig.height=8,include=TRUE,message=FALSE,echo=FALSE,fig.path='figure/kuaibao_'   )`
+`r opts_chunk$set(fig.width=8, fig.height=8,include=TRUE,message=FALSE,echo=TRUE,fig.path='figure/kuaibao_'   )`
 ---
 layout: post
 title: "余额宝快报微信公众平台数据分析报告"
@@ -16,15 +16,13 @@ tags: [wechat , weibo , ali_bao ]
 
 ### 1.1  报告所涉数据来源
 
-本报告所涉主要数据均来自「余额宝快报」微信公共平台所收集的数据，时间范围为2013年7月23日起至2013年10月7日止。部分用作对比数据（如各省市网民数）来自中国互联网络中心2013年发布的《第31次中国互联网网络发展状况统计报告》。
+本报告所涉主要数据均来自「余额宝快报」微信公共平台所收集的数据，时间范围为2013年7月23日起至2013年10月2日止。
   
-「余额宝快报」微信公共平台于7月13号注册，后台开发于7月21日完成，从23日开始产生完整的信息数据记录，所以本报告以2013年7月23日起至2013年10月7日止，14个自然日的数据为样本。
+「余额宝快报」微信公共平台于7月13号注册，后台开发于7月21日完成，从23日开始产生完整的信息数据记录，所以本报告以2013年7月23日起至2013年10月2日止，77个自然日的数据为样本。
 
 ### 1.2	为什么要做这样的报告分析
 
 「余额宝快报」微信公共平台推出以来受到用户欢迎，目前累计用户超过5000，每天处理1800次以上的用户互动查询，但用户及每天互动的消息数增长速度并未达到预期。通过本报告，了解细化用户的需求，了解他们的活跃时间，推出个性化的内容及服务。
-
-
 
   
 2 数据分析与可视化
@@ -32,9 +30,14 @@ tags: [wechat , weibo , ali_bao ]
 
 ### 2.1	整体概况
 
-截至2013-8-5日，余额宝快报共有1058位用户，其中7月23日起至8月5日共新增用户821名。
+截至2013-10-2日，余额宝快报共有4913位用户，其中7月23日起至10月2日共新增用户4407名。
 
 ### 2.2 数据准备
+
+为了便于分析,先将系统Mysql数据库的数据整理出，存在[本地](https://github.com/sunnotes/Programming-R/blob/master/kuaibao/kuaibao.RData)，通过```load(file =' ')```可以直接调用，从数据库加载到本地文件的代码详见我的[代码库](https://github.com/sunnotes/Programming-R/blob/master/kuaibao/dataobject.R)
+
+安装并加载依赖的R库
+
 ```{r prepare data }
 
 load(file ='kuaibao.RData')
@@ -47,14 +50,17 @@ library(reshape2)
 
 ### 2.3 基金收益分析
 
-* 基金收益样例数据
+#### 2.3.1 基金收益样例数据
 
 ```{r fund data}
 head(kuaibao.fund)
 ```
+ * day  是日期数据，一天一份，数据从2013-07-16开始
+ * profit  是增利宝（余额宝基金公司）每日公布的每万份收益额
+ * rate 是增利宝每日公布的七日年化收益率
+ * updatetime 是该收益的更新时间
 
-
-* 基金收益数据分析：
+#### 2.3.2 基金收益数据分析：
 
 ```{r fund analysis}
 summary(kuaibao.fund)
@@ -70,10 +76,16 @@ summary(kuaibao.fund$profit)
 ```
  * 均值与方差
 
-```{r profit analysis,fig.align='center'}
+```{r profit analysis}
 mean(kuaibao.fund$profit)
 sd(kuaibao.fund$profit)
 ```
+
+判断收益是否符合正态分布
+```{r profit norm analysis}
+shapiro.test(kuaibao.fund$profit)
+```
+p值明显小于0.05，表明数据不符合正态分布。
 
  * 每日万份收益统计时间序列图
 
@@ -84,11 +96,6 @@ ggplot(kuaibao.fund,aes(x=day,y=profit))+
   scale_x_date() +xlab('')+ylab('profit')
 ```
 由上图可以看出，通过loess（局部加权回归散点平滑法locally weighted scatterplot smoothing，LOWESS或LOESS）回归拟合，在8月25日-9月25日拟合较差，这期间收益涨跌幅度较大。
-
-
-
-
-
 
  * 每日万份收益统计箱须图
 
@@ -105,33 +112,37 @@ ggplot(kuaibao.fund, aes(x=profit)) +
                  binwidth=.02,
                  colour="black", fill="white") +
   geom_density(alpha=.2, fill="#FF6666") 
-
-
 ```
 
-2.2 用户分析
+通过对万份收益数据的分布拟合，也表明样本数据不符合正态分布。
 
 
-* 样例数据
+### 2.4用户分析
+
+
+#### 2.4.1 用户样例数据
 
 ```{r user sample}
 head(kuaibao.user)
 ```
-其中，subscribe表示每日新关注人数，unsubscribe表示每日取消关注人数，newuser表示净增关注人数，totaluser表示累计关注人数。
+其中，
 
-* 数据统计分析
+ * day  是日期数据，一天一份，数据从2013-07-23开始
+ * subscribe 表示每日新关注人数
+ * unsubscribe 表示每日取消关注人数
+ * newuser 表示净增关注人数
+ * newuser totaluser表示累计关注人数
+
+#### 2.4.2 用户数据统计分析
 ```{r user summary }
 summary(kuaibao.user)
 ```
 
-对数据进行重塑，
+* 对数据进行重塑
 
-通过melt融合数据,为是统计更直观，暂时取消,newuser,totaluser数据
+通过melt融合数据,为使统计更直观，暂时取消,newuser,totaluser数据
 ```{r user melt }
 kuaibao.user.melt <- melt(kuaibao.user[,1:3],id='day',variable.name='type',value.name='cnt')
-
-
-
 ```
 
 融合后代数据样例
@@ -150,7 +161,7 @@ ggplot(kuaibao.user.melt,aes(day,cnt,group=type,colour=type))+
   scale_x_date() +xlab('')+ylab('User cnt')
 ```
 
-由上图可以大致看出，每日新增关注人数和每日取消关注人数有一定的关联关系，当新增用户数增加时，取消关注的人数也会增加，下图为将数据进行标准正态化后的比较，二者的关联关系较为明显，这一块暂时不做详细的分析。
+由上图可以大致看出，每日新增关注人数和每日取消关注人数有一定的关联关系，当新增用户数增加时，取消关注的人数也会增加。
 
 ```{r user scaled timeseries lines,fig.align='center'}
 subscribe.scaled = scale(kuaibao.user$subscribe)
@@ -163,14 +174,11 @@ ggplot(user.scaled.melt,aes(kuaibao.user.day,cnt,group=type,colour=type))+
   geom_smooth()+
   scale_x_date() +xlab('')+ylab('User cnt')
 ```
+上图图为将数据进行标准正态化后的比较，二者的关联关系较为明显。
 
 
 
-
-
-
-
-* 重点研究下每日净新增的用户人数
+#### 2.3.4 重点研究每日净新增的用户人数
 
 
 ```{r newuser sammary}
@@ -178,23 +186,32 @@ summary(kuaibao.user$newuser)
 
 ```
 
-
 ```{r newuser ts, fig.align='center' }
 ggplot(kuaibao.user,aes(x=day,y=newuser))+
   geom_point(color='#009E73')+
   geom_smooth(method = 'loess',color='#D55E00')+
   scale_x_date() +xlab('')+ylab('cnt')
 ```
+通过loess拟合，没发现数据的规律。
 
-* 用户性别分析
+#### 2.3.5 用户性别分析
 
-```{r user gender,fig.align='center'}
+```{r user gender data}
 cnt<-c(3164,1514,199);
 gen=c("MALE","FEMALE","UNKOWN")
 pct=round(cnt/sum(cnt)*100)
 lab = paste(gen,' ',pct,'%')
 kuaibao.user.gender = data.frame(pct,gen,lab);
+```
 
+由于系统后台无法采集完整的性别数据，该数据直接取自微信公众号后台。
+
+所有关注者中，男性3164名，女性1514名，性别未知199名。
+
+男女比例为2.1：1
+
+详见下图：
+```{r user gender,fig.align='center'}
 ggplot(kuaibao.user.gender, aes(x = "" ,y = pct, fill = gen),stat = "bin") +  
   geom_bar(width = 3)  + 
   coord_polar("y")+ 
@@ -203,26 +220,34 @@ ggplot(kuaibao.user.gender, aes(x = "" ,y = pct, fill = gen),stat = "bin") +
 
 ```
 
-### 2.3 消息统计分析
-----------------
-消息样例数据
+### 2.4 消息统计分析
+
+#### 2.4.1 消息样例数据
 ```{r messages sample}
 head(kuaibao.messages,10)
+
+```
+#### 2.4.2 消息总体分析
+```{r messages summary}
 dim(kuaibao.messages)
 
 summary(kuaibao.messages)
 
 ```
-不同消息数量对比
+
+共有70869条数据记录
+
+#### 2.4.3 不同消息数量对比
 
 ```{r messages type , fig.align='center' }
+library(scales)
 ggplot(kuaibao.messages,aes(x=type_detail,color=type_detail,fill=type_detail))+
   geom_histogram()+
   scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
                      labels = trans_format("log10", math_format(10^.x)))
 ```
 
-每天的消息数比较
+#### 2.4.4 每天的消息数比较
 ```{r messages cnt ts , fig.align='center'}
 ggplot(kuaibao.messages,aes(x=day))+
   geom_histogram(aes(y=..count..), binwidth=.5)+
@@ -231,18 +256,16 @@ ggplot(kuaibao.messages,aes(x=day))+
 ```
 蓝色背景表示当天是周末，可以看到一般在周末，消息数量就会较少。
 
-每天的消息数比较
+每天不同类型的消息比较
 ```{r messages cnt ts type_detail , fig.align='center'}
 ggplot(kuaibao.messages,aes(x=day,fill=type_detail))+
   geom_histogram(aes(y=..count..), binwidth=.5)
 ```
-蓝色背景表示当天是周末，可以看到一般在周末，消息数量就会较少。
+
 
 
 3  信息挖掘
 -------------
-
-
 
 
 ### 3.1 对每日新增关注人数的做回归分析
@@ -296,10 +319,6 @@ fm2<-lm(formula=subscribe~profit,data=sa)
 summary(fm2)
 
 
-plot(fm2)
-
-plot(fm)
-
 ```
 
 通过线性回归可以看出，和是否是周末没有太大的关系
@@ -327,130 +346,58 @@ summary(loess.subscribeanalysis)
 
 ### 3.2 对每天消息数做回归分析
 
-```{r messages fm, fig.align='center' }
+```{r messages prepare data, fig.align='center' }
 head(kuaibao.messages)
 dim(kuaibao.messages)
 
 messagesperday <- tapply(kuaibao.messages$id,kuaibao.messages$day,length)
-head(messagesperday)
-dim(messagesperday)
-class(messagesperday)
-
+#head(messagesperday)
+#dim(messagesperday)
+#class(messagesperday)
 msgana<-data.frame(kuaibao.fund[-(1:7),]$day,kuaibao.fund[-(1:7),]$profit,kuaibao.user$subscribe,messagesperday,isWeekend(kuaibao.fund[-(1:7),]$day))
 colnames(msgana) <- c('day','profit','subscribe','message','isweekend')
-msgana
+head(msgana)
 
+```
+
+#### 3.2.1 时间序列分析
+```{r messages ts analysis, fig.align='center' }
+
+messagestimeseries <- ts(msgana$message)
+plot.ts(messagestimeseries)
+messagestimeseriesSMA3 <- SMA(messagestimeseries,n=5)
+plot.ts(messagestimeseriesSMA3)
+
+```
+
+#### 3.2.2 多元线性回归
+```{r messages linear regression, fig.align='center' }
 lm.msgana <- lm(message~profit+subscribe+isweekend,data=msgana)
 summary(lm.msgana)
+
+anova(lm.msgana)
+
+lm2.msgana <- lm(message~profit+subscribe,data=msgana)
+summary(lm2.msgana)
+
+anova(lm.msgana,lm2.msgana)
+
+final.lm.msgana<-step(lm.msgana)
 plot(lm.msgana)
 
+final.lm.msgana.predictions <- predict(final.lm.msgana,msgana)
 
-loess.msgana <- loess(message~profit+subscribe+isweekend, data=msgana)
+plot(final.lm.msgana.predictions,msgana$message)
+abline(0,1,lty=2)
 
-summary(lm.msgana)
-plot(lm.msgana)
+shapiro.test(msgana$subscribe)
 
-ggplot(subscribeanalysis,aes(x=profit,y=subscribe))+
-  geom_point(color='#009E73')+
-   geom_smooth(method = 'lm', color='#D55E00',lwd = 2)+
-  xlab('profit')+ylab('subscribe')
+glm.msgana <- glm(message~profit+subscribe, family=gaussian,data=msgana)
 
-
-ggplot(subscribeanalysis,aes(x=profit,y=subscribe))+
-  geom_point(color='#009E73')+
-  geom_smooth(method = 'loess', color='#CC79A7',lwd = 2)+
-  xlab('profit')+ylab('subscribe')
-```
-
-
-
-
-
-
-
-
-
-
-
-You can also embed plots, for example:
-
-```{r simple plot, fig.width=7, fig.height=6}
-plot(cars)
-```
-
-other
-----------------
-
-
-
-```{r user, fig.align='center' }
-ggplot(kuaibao.user.melt,aes(day,cnt),colours=type)+
-  geom_line()
-
-
-
-ggplot(kuaibao.fund,aes(x=day,y=profit))+
-  geom_point(color='#009E73')+
-  geom_smooth(method = 'loess',color='#D55E00')+
-  scale_x_date() +xlab('')+ylab('每日万份收益')
+summary(glm.msgana)
+plot(glm.msgana)
 
 ```
 
-* 每日增加关注用户数
 
-```{r fig.align='center' }
-head(kuaibao.user$subscribe)
-scale.subscrible<-scale(kuaibao.user$subscribe)
-scale.profit<-scale(kuaibao.fund$profit)
-```
 
-```{r fig.align='center' }
-ggplot()+ 
-geom_point(aes(kuaibao.user$day,scale.subscrible),colour="#009E73")+
-  geom_line(aes(kuaibao.user$day,scale.subscrible),colour="#009E73", linetype="dotted", size=1)+
-  
-ggplot(kuaibao.user)+  
-  geom_point(aes(kuaibao.user$day,scale.profit),colour="#FF9999")+
-  geom_line(aes(kuaibao.user$day,scale.profit),colour="#FF9999", linetype="dotted", size=1) 
-```
-
-```{r  }
-summary(kuaibao.user$newuser)
-mean(kuaibao.user$newuser)
-sd(kuaibao.user$newuser)
-```
-
-```{r  fig.align='center'}
-p <- ggplot(kuaibao.user, aes(x=newuser)) +  
-  geom_histogram(aes(y = ..density..),binwidth = 10)+
-  geom_density()
-print(p)
-
-```
-
-```{r  }
-#每日取消关注用户
-
-summary(kuaibao.user$unfollower)
-mean(kuaibao.user$unfollower)
-sd(kuaibao.user$unfollower)
-```
-
-```{r  fig.align='center'}
-p <- ggplot(kuaibao.user, aes(x=unfollower)) +  
-  geom_histogram(aes(y = ..density..),binwidth = 0.5)+
-  geom_density()
-print(p)
-```
-
-```{r fig.align='center' }
-
-#新增用户
-
-p <- ggplot(data=kuaibao.user)+
-  geom_point(aes(day,newfollower),colour = "green")+geom_line(aes(day,newfollower),color=I('GRAY'))+
-  geom_point(aes(day,unfollower),colour = "red") +geom_line(aes(day,unfollower),color=I('GRAY'))
-p + geom_rect(data = kuaibao.user,aes(xmin = day, xmax =day+1 ,fill = isWeekend(day)),
-            ymin = min(kuaibao.user$unfollower), ymax =max(kuaibao.user$newfollower),alpha=0.1)
-
-```
