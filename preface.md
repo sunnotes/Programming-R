@@ -2,13 +2,21 @@
 
 ## [基础篇]()
 
-- 第一章 [R 初体验]()
+- 第一话 [R 初体验及基本语法](https://github.com/sunnotes/Programming-R/tree/master/tutorial)
 
+	* 1.1 [基本操作，数值和向量](contents/02-simple-manipulations-numbers-and-vectors.md)
+	* 1.2 [对象，模式和属性](contents/03-objects-their-modes-and-attributes.md)
+	* 1.3 [有序和无序因子](contents/04-ordered-and-unordered-factors.md)
 	
 
-- 第二章 [R 软件的使用]()
+- 第二话 R语言实战 [R in action](https://github.com/sunnotes/Programming-R/tree/master/rinaction)
+- 第三话 统计建模与R软件 [R Moding](- 第二话 R语言实战 [R in action](https://github.com/sunnotes/Programming-R/tree/master/rinaction))
+- 第四话 R语言编程艺术 [The Art of R Programming](https://github.com/sunnotes/Programming-R/tree/master/rinaction)
+- 第五话 数据挖掘与R语言 [Data Mining with R](https://github.com/sunnotes/Programming-R/tree/master/DataMiningwithRlearningbycasestudies)
+- 第六话 ggplot2 [ggplot2 Elegant Graphics for Data Analysis (use R)_sunnotes](https://github.com/sunnotes/Programming-R/tree/master/ggplot2_ElegantGraphicsforDataAnalysis)
+- 第七话 时间序列分析及应用 [Time Series Analysis with Applications in R)_sunnotes](https://github.com/sunnotes/Programming-R/tree/master/TimeSeriesAnalysiswithApplicationsinR)
 
-	* 2.1 [基本操作，数值和向量](contents/02-simple-manipulations-numbers-and-vectors.md)
-	* 2.2 [对象，模式和属性](contents/03-objects-their-modes-and-attributes.md)
-	* 2.3 [有序和无序因子](contents/04-ordered-and-unordered-factors.md)
 
+
+##[实战篇]()
+- 第一站 [余额宝快报平台统计分析](https://github.com/sunnotes/Programming-R/tree/master/kuaibao)
