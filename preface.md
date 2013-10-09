@@ -13,7 +13,7 @@
 - 第三话 统计建模与R软件 [R Moding](https://github.com/sunnotes/Programming-R/tree/master/r%20%20moding)
 - 第四话 R语言编程艺术 [The Art of R Programming]()
 - 第五话 数据挖掘与R语言 [Data Mining with R](https://github.com/sunnotes/Programming-R/tree/master/DataMiningwithRlearningbycasestudies)
-- 第六话 ggplot2 [ggplot2 Elegant Graphics for Data Analysis (use R)_sunnotes](https://github.com/sunnotes/Programming-R/tree/master/ggplot2_ElegantGraphicsforDataAnalysis)
+- 第六话 ggplot2 [ggplot2 Elegant Graphics for Data Analysis (use R)](https://github.com/sunnotes/Programming-R/tree/master/ggplot2_ElegantGraphicsforDataAnalysis)
 - 第七话 时间序列分析及应用 [Time Series Analysis with Applications in R](https://github.com/sunnotes/Programming-R/tree/master/TimeSeriesAnalysiswithApplicationsinR)
 - 第八话 R手册 [Cookbook for R](https://github.com/sunnotes/Programming-R/tree/master/TimeSeriesAnalysiswithApplicationsinR)
 
@@ -21,4 +21,4 @@
 
 
 ##[实战篇]()
-- 第一站 [余额宝快报平台统计分析](https://github.com/sunnotes/Programming-R/tree/master/kuaibao)
+- 第一战 [余额宝快报平台统计分析](https://github.com/sunnotes/Programming-R/tree/master/kuaibao)
