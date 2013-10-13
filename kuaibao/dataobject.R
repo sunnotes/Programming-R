@@ -18,7 +18,8 @@ kuaibao.user <- sqlQuery(conn , "SELECT  b.day as day,
     FROM (SELECT DATE(msgtime) AS day ,type_detail AS type ,COUNT(*) AS num FROM message a WHERE  msg_type = 5 GROUP BY DATE(a.msgtime),a.type_detail) b 
     GROUP BY b.day")
 kuaibao.user$newuser <- kuaibao.user$subscribe - kuaibao.user$unsubscribe
-kuaibao.user$totaluser<- cumsum(kuaibao.user$newuser) + kuaibao.userbase;
+kuaibao.user$totaluser<- cumsum(kuaibao.user$newuser) + kuaibao.userbase
+kuaibao.user$activeuser <- sqlQuery(conn , "SELECT COUNT(DISTINCT(fromuser)) as activeuser FROM  message WHERE DATE(msgtime)>\'2013-07-22\' GROUP BY DATE(msgtime)" )
 dim(kuaibao.user)
 head(kuaibao.user)
 

@@ -1,11 +1,9 @@
-
-
 ---
 layout: post
-title: "余额宝快报微信公众平台数据分析报告"
+title: "余额宝快报平台数据分析报告Ⅱ(未完)"
 description: ""
 category: statistics
-tags: [wechat , weibo , ali_bao ]
+tags: [ 余额宝 , 统计  ]
 ---
 {% include JB/setup %}
 
@@ -14,12 +12,12 @@ tags: [wechat , weibo , ali_bao ]
 【余额宝快报】是基于微信，提供余额宝（天弘增利宝货币基金）收益播报，计算，查询及常见问题回答的微信公共平台。本文是对该平台后台数据的分析与挖据，主要内容包括：1.对基金每日收益进行分析；2.对用户及其订阅及取消订阅行为进行分析；3.对消息及其种类，发送时间等信息进行分析；4.对每日新增关注人数进行回归分析；5.对每日消息数进行挖据分析。本文使用R语言作为工具，使用ggplot2包进行绘图，使用knitr+markdown进行文档编辑。
 
 观点：
-* 1.  快报男性用户是女性用户的2倍，男性更爱“理财”
+* 1.	快报男性用户是女性用户的2倍，男性更爱“理财”
 * 2.	很多用户通过向【快报】提问，获取余额宝相关的信息
 * 3.	【快报】每天的活跃用户数并没有随着用户的增加而增加，用户活跃度度相在降低
 
 
-报告文档[下载]({{}}/adds/kuaibao/余额宝快报平台数据研究报告Ⅱ.pdf)
+报告文档[下载]({{site.img_url}}/adds/kuaibao/余额宝快报平台数据研究报告Ⅱ.pdf)
 
 
 1 概述
@@ -170,7 +168,7 @@ ggplot(kuaibao.fund, aes(x = day, y = profit)) + geom_point(color = "#009E73") +
     ylab("profit")
 ```
 
-<img src="figure/kuaibao_fund_profit_ts.png" title="plot of chunk fund profit ts" alt="plot of chunk fund profit ts" style="display: block; margin: auto;" />
+<img src="{{ site.img_url }}/kuaibao/figure/kuaibao_fund_profit_ts.png" title="plot of chunk fund profit ts" alt="plot of chunk fund profit ts" style="display: block; margin: auto;" />
 
 由上图可以看出，通过loess（局部加权回归散点平滑法locally weighted scatterplot smoothing，LOWESS或LOESS）回归拟合，在8月25日-9月25日拟合较差，这期间收益涨跌幅度较大。
 
@@ -182,7 +180,7 @@ ggplot(kuaibao.fund, aes(x = day, y = profit)) + geom_point(color = "#009E73") +
     geom_boxplot(colour = "#56B4E9", alpha = 0.1)
 ```
 
-<img src="figure/kuaibao_fund_boxplot.png" title="plot of chunk fund boxplot" alt="plot of chunk fund boxplot" style="display: block; margin: auto;" />
+<img src="{{ site.img_url }}/kuaibao/figure/kuaibao_fund_boxplot.png" title="plot of chunk fund boxplot" alt="plot of chunk fund boxplot" style="display: block; margin: auto;" />
 
 
 * 每日万份收益统计直方图
@@ -196,7 +194,7 @@ ggplot(kuaibao.fund, aes(x = profit)) + geom_histogram(aes(y = ..count..), binwi
 ## Warning: position_stack requires constant width: output may be incorrect
 ```
 
-<img src="figure/kuaibao_fund_histogram.png" title="plot of chunk fund histogram" alt="plot of chunk fund histogram" style="display: block; margin: auto;" />
+<img src="{{ site.img_url }}/kuaibao/figure/kuaibao_fund_histogram.png" title="plot of chunk fund histogram" alt="plot of chunk fund histogram" style="display: block; margin: auto;" />
 
 
 通过对万份收益数据的分布拟合，也表明样本数据不符合正态分布。
@@ -291,7 +289,7 @@ ggplot(kuaibao.user.melt, aes(day, cnt, group = type, colour = type)) + geom_lin
     ylab("")
 ```
 
-<img src="figure/kuaibao_user_timeseries_lines.png" title="plot of chunk user timeseries lines" alt="plot of chunk user timeseries lines" style="display: block; margin: auto;" />
+<img src="{{ site.img_url }}/kuaibao/figure/kuaibao_user_timeseries_lines.png" title="plot of chunk user timeseries lines" alt="plot of chunk user timeseries lines" style="display: block; margin: auto;" />
 
 
 由上图可以大致看出，每日新增关注人数和每日取消关注人数有一定的关联关系，当新增用户数增加时，取消关注的人数也会增加。
@@ -308,7 +306,7 @@ ggplot(user.scaled.melt, aes(kuaibao.user.day, cnt, group = type, colour = type)
     ylab("User cnt")
 ```
 
-<img src="figure/kuaibao_user_scaled_timeseries_lines.png" title="plot of chunk user scaled timeseries lines" alt="plot of chunk user scaled timeseries lines" style="display: block; margin: auto;" />
+<img src="{{ site.img_url }}/kuaibao/figure/kuaibao_user_scaled_timeseries_lines.png" title="plot of chunk user scaled timeseries lines" alt="plot of chunk user scaled timeseries lines" style="display: block; margin: auto;" />
 
 上图图为将数据进行标准正态化后的比较，二者的关联关系较为明显。
 
@@ -320,7 +318,7 @@ ggplot(kuaibao.user, aes(day, totaluser)) + geom_line() + geom_point() + geom_sm
     scale_x_date() + xlab("") + ylab("")
 ```
 
-<img src="figure/kuaibao_totaluser__timeseries.png" title="plot of chunk totaluser  timeseries" alt="plot of chunk totaluser  timeseries" style="display: block; margin: auto;" />
+<img src="{{ site.img_url }}/kuaibao/figure/kuaibao_totaluser__timeseries.png" title="plot of chunk totaluser  timeseries" alt="plot of chunk totaluser  timeseries" style="display: block; margin: auto;" />
 
 
 可以看出，每天
@@ -347,7 +345,7 @@ ggplot(kuaibao.user, aes(x = day, y = newuser)) + geom_point(color = "#009E73") 
     ylab("cnt")
 ```
 
-<img src="figure/kuaibao_newuser_ts.png" title="plot of chunk newuser ts" alt="plot of chunk newuser ts" style="display: block; margin: auto;" />
+<img src="{{ site.img_url }}/kuaibao/figure/kuaibao_newuser_ts.png" title="plot of chunk newuser ts" alt="plot of chunk newuser ts" style="display: block; margin: auto;" />
 
 通过loess拟合，没发现数据的规律。
 
@@ -375,7 +373,7 @@ colors <- c("#56B4E9", "#009E73", "#D55E00")
 pie(cnt, labels = lab, col = colors, main = "<U+8BA2><U+9605><U+7528><U+6237><U+6027><U+522B><U+6BD4><U+4F8B><U+56FE>")
 ```
 
-<img src="figure/kuaibao_user_gender.png" title="plot of chunk user gender" alt="plot of chunk user gender" style="display: block; margin: auto;" />
+<img src="{{ site.img_url }}/kuaibao/figure/kuaibao_user_gender.png" title="plot of chunk user gender" alt="plot of chunk user gender" style="display: block; margin: auto;" />
 
 ```r
 
@@ -395,7 +393,7 @@ ggplot(active, aes(x = day, y = rate)) + geom_point(color = "#009E73") + geom_sm
     color = "#D55E00") + scale_x_date() + xlab("") + ylab("")
 ```
 
-<img src="figure/kuaibao_activeuser_analysis.png" title="plot of chunk activeuser analysis" alt="plot of chunk activeuser analysis" style="display: block; margin: auto;" />
+<img src="{{ site.img_url }}/kuaibao/figure/kuaibao_activeuser_analysis.png" title="plot of chunk activeuser analysis" alt="plot of chunk activeuser analysis" style="display: block; margin: auto;" />
 
 
 ### 2.4 消息统计分析
@@ -486,7 +484,7 @@ ggplot(kuaibao.messages, aes(x = type_detail, color = type_detail, fill = type_d
     labels = trans_format("log10", math_format(10^.x))) + xlab("") + ylab("")
 ```
 
-<img src="figure/kuaibao_messages_type_.png" title="plot of chunk messages type " alt="plot of chunk messages type " style="display: block; margin: auto;" />
+<img src="{{ site.img_url }}/kuaibao/figure/kuaibao_messages_type_.png" title="plot of chunk messages type " alt="plot of chunk messages type " style="display: block; margin: auto;" />
 
 
 #### 2.4.4 每天的消息数比较
@@ -498,7 +496,7 @@ ggplot(kuaibao.messages, aes(x = day)) + geom_histogram(aes(y = ..count..),
     ylab("")
 ```
 
-<img src="figure/kuaibao_messages_cnt_ts_.png" title="plot of chunk messages cnt ts " alt="plot of chunk messages cnt ts " style="display: block; margin: auto;" />
+<img src="{{ site.img_url }}/kuaibao/figure/kuaibao_messages_cnt_ts_.png" title="plot of chunk messages cnt ts " alt="plot of chunk messages cnt ts " style="display: block; margin: auto;" />
 
 蓝色背景表示当天是周末，可以看到一般在周末，消息数量就会较少。
 
@@ -509,7 +507,7 @@ ggplot(kuaibao.messages, aes(x = day, fill = type_detail)) + geom_histogram(aes(
     binwidth = 0.5) + xlab("") + ylab("")
 ```
 
-<img src="figure/kuaibao_messages_cnt_ts_type_detail_.png" title="plot of chunk messages cnt ts type_detail " alt="plot of chunk messages cnt ts type_detail " style="display: block; margin: auto;" />
+<img src="{{ site.img_url }}/kuaibao/figure/kuaibao_messages_cnt_ts_type_detail_.png" title="plot of chunk messages cnt ts type_detail " alt="plot of chunk messages cnt ts type_detail " style="display: block; margin: auto;" />
 
 
 
@@ -611,7 +609,7 @@ summary(fm)
 plot(fm$residuals)
 ```
 
-<img src="figure/kuaibao_subscribe_fm.png" title="plot of chunk subscribe fm" alt="plot of chunk subscribe fm" style="display: block; margin: auto;" />
+<img src="{{ site.img_url }}/kuaibao/figure/kuaibao_subscribe_fm.png" title="plot of chunk subscribe fm" alt="plot of chunk subscribe fm" style="display: block; margin: auto;" />
 
 ```r
 
@@ -699,7 +697,7 @@ ggplot(subscribeanalysis, aes(x = profit, y = subscribe)) + geom_point(color = "
     ylab("subscribe")
 ```
 
-<img src="figure/kuaibao_subscribe_fm31.png" title="plot of chunk subscribe fm3" alt="plot of chunk subscribe fm3" style="display: block; margin: auto;" />
+<img src="{{ site.img_url }}/kuaibao/figure/kuaibao_subscribe_fm31.png" title="plot of chunk subscribe fm3" alt="plot of chunk subscribe fm3" style="display: block; margin: auto;" />
 
 ```r
 
@@ -709,7 +707,7 @@ ggplot(subscribeanalysis, aes(x = profit, y = subscribe)) + geom_point(color = "
     ylab("subscribe")
 ```
 
-<img src="figure/kuaibao_subscribe_fm32.png" title="plot of chunk subscribe fm3" alt="plot of chunk subscribe fm3" style="display: block; margin: auto;" />
+<img src="{{ site.img_url }}/kuaibao/figure/kuaibao_subscribe_fm32.png" title="plot of chunk subscribe fm3" alt="plot of chunk subscribe fm3" style="display: block; margin: auto;" />
 
 ```r
 
@@ -940,7 +938,7 @@ final.lm.msgana <- step(lm.msgana)
 plot(lm.msgana)
 ```
 
-<img src="figure/kuaibao_messages_linear_regression1.png" title="plot of chunk messages linear regression" alt="plot of chunk messages linear regression" style="display: block; margin: auto;" /><img src="figure/kuaibao_messages_linear_regression2.png" title="plot of chunk messages linear regression" alt="plot of chunk messages linear regression" style="display: block; margin: auto;" /><img src="figure/kuaibao_messages_linear_regression3.png" title="plot of chunk messages linear regression" alt="plot of chunk messages linear regression" style="display: block; margin: auto;" /><img src="figure/kuaibao_messages_linear_regression4.png" title="plot of chunk messages linear regression" alt="plot of chunk messages linear regression" style="display: block; margin: auto;" />
+<img src="{{ site.img_url }}/kuaibao/figure/kuaibao_messages_linear_regression1.png" title="plot of chunk messages linear regression" alt="plot of chunk messages linear regression" style="display: block; margin: auto;" /><img src="{{ site.img_url }}/kuaibao/figure/kuaibao_messages_linear_regression2.png" title="plot of chunk messages linear regression" alt="plot of chunk messages linear regression" style="display: block; margin: auto;" /><img src="{{ site.img_url }}/kuaibao/figure/kuaibao_messages_linear_regression3.png" title="plot of chunk messages linear regression" alt="plot of chunk messages linear regression" style="display: block; margin: auto;" /><img src="{{ site.img_url }}/kuaibao/figure/kuaibao_messages_linear_regression4.png" title="plot of chunk messages linear regression" alt="plot of chunk messages linear regression" style="display: block; margin: auto;" />
 
 ```r
 
@@ -950,7 +948,7 @@ plot(final.lm.msgana.predictions, msgana$message)
 abline(0, 1, lty = 2)
 ```
 
-<img src="figure/kuaibao_messages_linear_regression5.png" title="plot of chunk messages linear regression" alt="plot of chunk messages linear regression" style="display: block; margin: auto;" />
+<img src="{{ site.img_url }}/kuaibao/figure/kuaibao_messages_linear_regression5.png" title="plot of chunk messages linear regression" alt="plot of chunk messages linear regression" style="display: block; margin: auto;" />
 
 ```r
 
@@ -1003,7 +1001,7 @@ summary(glm.msgana)
 plot(glm.msgana)
 ```
 
-<img src="figure/kuaibao_messages_linear_regression6.png" title="plot of chunk messages linear regression" alt="plot of chunk messages linear regression" style="display: block; margin: auto;" /><img src="figure/kuaibao_messages_linear_regression7.png" title="plot of chunk messages linear regression" alt="plot of chunk messages linear regression" style="display: block; margin: auto;" /><img src="figure/kuaibao_messages_linear_regression8.png" title="plot of chunk messages linear regression" alt="plot of chunk messages linear regression" style="display: block; margin: auto;" /><img src="figure/kuaibao_messages_linear_regression9.png" title="plot of chunk messages linear regression" alt="plot of chunk messages linear regression" style="display: block; margin: auto;" />
+<img src="{{ site.img_url }}/kuaibao/figure/kuaibao_messages_linear_regression6.png" title="plot of chunk messages linear regression" alt="plot of chunk messages linear regression" style="display: block; margin: auto;" /><img src="{{ site.img_url }}/kuaibao/figure/kuaibao_messages_linear_regression7.png" title="plot of chunk messages linear regression" alt="plot of chunk messages linear regression" style="display: block; margin: auto;" /><img src="{{ site.img_url }}/kuaibao/figure/kuaibao_messages_linear_regression8.png" title="plot of chunk messages linear regression" alt="plot of chunk messages linear regression" style="display: block; margin: auto;" /><img src="{{ site.img_url }}/kuaibao/figure/kuaibao_messages_linear_regression9.png" title="plot of chunk messages linear regression" alt="plot of chunk messages linear regression" style="display: block; margin: auto;" />
 
 #### 3.2.3 loess回归分析
 
@@ -1109,7 +1107,7 @@ final.lm.msgana <- step(lm.msgana)
 plot(lm.msgana)
 ```
 
-<img src="figure/kuaibao_messages_loess_regression1.png" title="plot of chunk messages loess regression" alt="plot of chunk messages loess regression" style="display: block; margin: auto;" /><img src="figure/kuaibao_messages_loess_regression2.png" title="plot of chunk messages loess regression" alt="plot of chunk messages loess regression" style="display: block; margin: auto;" /><img src="figure/kuaibao_messages_loess_regression3.png" title="plot of chunk messages loess regression" alt="plot of chunk messages loess regression" style="display: block; margin: auto;" /><img src="figure/kuaibao_messages_loess_regression4.png" title="plot of chunk messages loess regression" alt="plot of chunk messages loess regression" style="display: block; margin: auto;" />
+<img src="{{ site.img_url }}/kuaibao/figure/kuaibao_messages_loess_regression1.png" title="plot of chunk messages loess regression" alt="plot of chunk messages loess regression" style="display: block; margin: auto;" /><img src="{{ site.img_url }}/kuaibao/figure/kuaibao_messages_loess_regression2.png" title="plot of chunk messages loess regression" alt="plot of chunk messages loess regression" style="display: block; margin: auto;" /><img src="{{ site.img_url }}/kuaibao/figure/kuaibao_messages_loess_regression3.png" title="plot of chunk messages loess regression" alt="plot of chunk messages loess regression" style="display: block; margin: auto;" /><img src="{{ site.img_url }}/kuaibao/figure/kuaibao_messages_loess_regression4.png" title="plot of chunk messages loess regression" alt="plot of chunk messages loess regression" style="display: block; margin: auto;" />
 
 ```r
 
@@ -1119,7 +1117,7 @@ plot(final.lm.msgana.predictions, msgana$message)
 abline(0, 1, lty = 2)
 ```
 
-<img src="figure/kuaibao_messages_loess_regression5.png" title="plot of chunk messages loess regression" alt="plot of chunk messages loess regression" style="display: block; margin: auto;" />
+<img src="{{ site.img_url }}/kuaibao/figure/kuaibao_messages_loess_regression5.png" title="plot of chunk messages loess regression" alt="plot of chunk messages loess regression" style="display: block; margin: auto;" />
 
 ```r
 
@@ -1172,7 +1170,7 @@ summary(glm.msgana)
 plot(glm.msgana)
 ```
 
-<img src="figure/kuaibao_messages_loess_regression6.png" title="plot of chunk messages loess regression" alt="plot of chunk messages loess regression" style="display: block; margin: auto;" /><img src="figure/kuaibao_messages_loess_regression7.png" title="plot of chunk messages loess regression" alt="plot of chunk messages loess regression" style="display: block; margin: auto;" /><img src="figure/kuaibao_messages_loess_regression8.png" title="plot of chunk messages loess regression" alt="plot of chunk messages loess regression" style="display: block; margin: auto;" /><img src="figure/kuaibao_messages_loess_regression9.png" title="plot of chunk messages loess regression" alt="plot of chunk messages loess regression" style="display: block; margin: auto;" />
+<img src="{{ site.img_url }}/kuaibao/figure/kuaibao_messages_loess_regression6.png" title="plot of chunk messages loess regression" alt="plot of chunk messages loess regression" style="display: block; margin: auto;" /><img src="{{ site.img_url }}/kuaibao/figure/kuaibao_messages_loess_regression7.png" title="plot of chunk messages loess regression" alt="plot of chunk messages loess regression" style="display: block; margin: auto;" /><img src="{{ site.img_url }}/kuaibao/figure/kuaibao_messages_loess_regression8.png" title="plot of chunk messages loess regression" alt="plot of chunk messages loess regression" style="display: block; margin: auto;" /><img src="{{ site.img_url }}/kuaibao/figure/kuaibao_messages_loess_regression9.png" title="plot of chunk messages loess regression" alt="plot of chunk messages loess regression" style="display: block; margin: auto;" />
 
 
 
