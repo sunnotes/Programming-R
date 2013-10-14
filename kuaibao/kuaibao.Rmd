@@ -1,5 +1,5 @@
 
-`r opts_chunk$set(fig.width=8, fig.height=8,include=TRUE,message=FALSE,echo=TRUE,fig.path='figure/kuaibao_'   )`
+`r opts_chunk$set(fig.width=8, fig.height=8,include=TRUE,message=TRUE,highlight=TRUE,echo=TRUE,fig.path='figure/kuaibao_' ,encoding = 'UTF-8' , documentclass = 'UTF-8' )`
 ---
 layout: post
 title: "余额宝快报公众平台数据分析报告"
@@ -57,6 +57,7 @@ tags: [ 余额宝 , 统计 ]
 
 load(file ='kuaibao.RData')
 #install.packages("ggplot2")
+#install.packages('timeDate')
 library(ggplot2)
 library(timeDate)
 library(reshape2)
@@ -238,7 +239,7 @@ lab = paste(gen,' ',pct,'%')
 详见下图：
 ```{r user gender,fig.align='center'}
 colors <- c( "#56B4E9", "#009E73", "#D55E00")
-pie(cnt,labels= lab，col= colors,main="订阅用户性别比例图")
+pie(cnt,labels= lab ,col= colors , main=  '订阅用户性别比例图')
 
 #ggplot(kuaibao.user.gender, aes(x = "" ,y = pct, fill = gen),stat = "bin") +  
 #  geom_bar(width = 3)  + 
