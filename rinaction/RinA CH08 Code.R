@@ -12,6 +12,8 @@ opar <- par(no.readonly = TRUE)
 
 # Listing 8.1 - simple linear regression
 
+head(women)
+dim(women)
 fit <- lm(weight ~ height, data = women)
 summary(fit)
 women$weight
@@ -56,12 +58,14 @@ scatterplotMatrix(states, spread = FALSE, lty.smooth = 2,
 
 fit <- lm(Murder ~ Population + Illiteracy + Income + 
     Frost, data = states)
-    
+summary(fit)   
 # Listing 8.5 Multiple linear regression with a significant
 # interaction term
 
 fit <- lm(mpg ~ hp + wt + hp:wt, data = mtcars)
 summary(fit)
+
+install.packages('effects')
 
 library(effects)
 plot(effect("hp:wt", fit, list(wt = c(2.2, 3.2, 4.2))), 
@@ -79,7 +83,7 @@ fit <- lm(weight ~ height, data = women)
 par(mfrow = c(2, 2))
 plot(fit)
 par(opar)
-
+par(mfrow = c(1, 1))
 # regression diagnostics for quadratic fit
 
 newfit <- lm(weight ~ height + I(height^2), data = women)
@@ -101,13 +105,13 @@ fit <- lm(Murder ~ Population + Illiteracy + Income +
     Frost, data = states)
 par(mfrow = c(2, 2))
 plot(fit)
-par(opar)
+
 
 # Assessing normality
 library(car)
 fit <- lm(Murder ~ Population + Illiteracy + Income + 
     Frost, data = states)
-qqPlot(fit, labels = FALSE, simulate = TRUE, main = "Q-Q Plot")
+qqPlot(fit, labels = FALSE, simulate = TRUE, main = "Q-Q Plot",id.method = "identify",labels=row.names(states))
 
 
 # Listing 8.6 Function for plotting studentized residuals

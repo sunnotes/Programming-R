@@ -1,7 +1,7 @@
 ###################################################
 ### Loading the data into R
 ###################################################
-load('sales.Rdata')
+#load('./DataMiningwithRlearningbycasestudies/sales.Rdata')
 
 
 library(DMwR)

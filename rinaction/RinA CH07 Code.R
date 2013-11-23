@@ -5,7 +5,7 @@
 # install.packages(c('npmc', 'ggm', 'gmodels', 'vcd', 'Hmisc',       #
 #     'pastecs', 'psych', 'doBy', 'reshape'))                        #
 #---------------------------------------------------------------------
- install.packages(c('npmc', 'ggm', 'gmodels', 'vcd', 'Hmisc',       #
+ install.packages(c('npmc', 'ggm', 'gmodels', 'vcd', 'Hmisc',       
      'pastecs', 'psych', 'doBy', 'reshape'))  
 vars <- c("mpg", "hp", "wt")
 head(mtcars[vars])

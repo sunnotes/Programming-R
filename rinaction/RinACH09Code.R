@@ -6,6 +6,9 @@
 #     'rrcov', 'mvoutlier', 'MASS'))                                #
 #-------------------------------------------------------------------#
 
+
+install.packages(c('multcomp', 'gplots', 'car', 'HH', 'effects','rrcov', 'mvoutlier', 'MASS'))
+
 # pause for each graph
 par(ask = TRUE)
 

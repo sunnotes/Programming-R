@@ -1,5 +1,5 @@
 
-`r opts_chunk$set(fig.width=8, fig.height=8,include=TRUE,message=FALSE,echo=TRUE,fig.path='figure/kuaibao_'   )`
+`r opts_chunk$set(fig.width=8, fig.height=8,include=TRUE,message=TRUE,highlight=TRUE,echo=TRUE,fig.path='figure/kuaibao_' ,encoding = 'UTF-8' , documentclass = 'UTF-8' )`
 ---
 layout: post
 title: "余额宝快报公众平台数据分析报告"
@@ -37,7 +37,7 @@ tags: [ 余额宝 , 统计 ]
 
 ### 1.2	为什么要做这样的报告分析
 
-「余额宝快报」微信公共平台推出以来受到用户欢迎，目前累计用户超过5000，每天处理1800次以上的用户互动查询，但用户及每天互动的消息数增长速度并未达到预期。通过本报告，了解细化用户的需求，了解他们的活跃时间，推出个性化的内容及服务。
+「余额宝快报」微信公共平台推出以来受到用户欢迎，目前累计用户超过8000，每天处理3000次左右的用户互动查询，但用户及每天互动的消息数增长速度并未达到预期。通过本报告，了解细化用户的需求，了解他们的活跃时间，推出个性化的内容及服务。
 
   
 2 数据分析与可视化
@@ -57,6 +57,7 @@ tags: [ 余额宝 , 统计 ]
 
 load(file ='kuaibao.RData')
 #install.packages("ggplot2")
+#install.packages('timeDate')
 library(ggplot2)
 library(timeDate)
 library(reshape2)
@@ -238,7 +239,7 @@ lab = paste(gen,' ',pct,'%')
 详见下图：
 ```{r user gender,fig.align='center'}
 colors <- c( "#56B4E9", "#009E73", "#D55E00")
-pie(cnt,labels= lab，col= colors,main="订阅用户性别比例图")
+pie(cnt,labels= lab ,col= colors , main=  '订阅用户性别比例图')
 
 #ggplot(kuaibao.user.gender, aes(x = "" ,y = pct, fill = gen),stat = "bin") +  
 #  geom_bar(width = 3)  + 
@@ -471,5 +472,6 @@ summary(glm.msgana)
 plot(glm.msgana)
 
 ```
+
 
 
