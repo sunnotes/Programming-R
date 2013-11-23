@@ -26,9 +26,8 @@ head(kuaibao.user)
 
 ###########messages data analysis
 kuaibao.messages <- sqlQuery(conn,'
-    SELECT   id, userid, sex,msgtime ,date(msgtime) as day,hour(msgtime) as hour,msg_type,type_detail,content
-  FROM 
-	message WHERE DATE(msgtime)>\'2013-07-22\' ',nullstring = NA_character_, na.strings = "NA")
+   SELECT  userid,msgtime ,msg_type,type_detail,content
+  FROM message WHERE msgtime IS NOT  NULL AND msgtime  ORDER BY msgtime  ',nullstring = NA_character_, na.strings = "NA")
 dim(kuaibao.messages)
 head(kuaibao.messages)
 
