@@ -87,7 +87,7 @@ printcp(users_rpart)
 subuser <- users[which(users$D30daycnt >=3 ),-2]
 dim(subuser)
 
-users_rpart10 <- rpart(userid ~ ., data=subuser,minsplit = 200,cp = 0.0001)
+users_rpart10 <- rpart(userid ~ ., data=users[which(users$D30daycnt >=3),-2],minsplit = 100,cp = 0.001)
 print(users_rpart10)
 printcp(users_rpart10)
 
@@ -96,20 +96,7 @@ printcp(users_rpart10)
 users_rpart101 <- prune(users_rpart10,cp =0.0002)
 users_rpart101
 plot(users_rpart101)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+text(users_rpart101)
 
 
 
