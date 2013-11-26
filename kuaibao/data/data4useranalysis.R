@@ -60,7 +60,7 @@ SELECT  userid, COUNT(*) AS D7msgcnt ,  COUNT(DISTINCT(DATE(msgtime))) AS D7dayc
 dim(D7)
 head(D7)
 
-
+##业余的代码，后期封装成函数
 users<-merge(merge(merge(merge(merge(user1,Total,all=TRUE),D60,all=TRUE),D30,all=TRUE),D15,all=TRUE),D7,all=TRUE)
 
 users[1:50,]

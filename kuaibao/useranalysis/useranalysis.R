@@ -80,7 +80,7 @@ plot(users_ctree)
 
 
 #决策树2
-users_rpart <- rpart(userid ~ ., data=users[,-2],minsplit = 200,cp = 0.01)
+users_rpart <- rpart(userid ~ ., data=users[,-2],minsplit = 1000,cp = 0.01)
 print(users_rpart)
 printcp(users_rpart)
 
