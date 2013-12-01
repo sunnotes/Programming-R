@@ -1,10 +1,13 @@
 ###数据准备
 
 library(ggplot2)
-library("party")
+library(party)
 #install.packages("party")
 install.packages("rpart")
+install.packages("lubridate")
 library("rpart")
+library("lubridate")
+
 
 load(file ='kuaibao/data/messages.RData')
 dim(messages)
@@ -41,10 +44,6 @@ ggplot(msgdaily, aes(date, msgcnt)) + geom_line(color='#009E73') +
   geom_smooth(method = "loess",color='#D55E00') + 
   scale_x_date() + xlab("日期") + 
   ylab("每日消息数")
-
-
-
-plot(newuser)
 
 
 #近期有消息的人数
@@ -158,5 +157,3 @@ D15day <-users[users$D15daycnt!=0,]$D15daycnt
 dim(D15day)
 summary(D15day)
 var(D15day)
-
-histogram(D15day)

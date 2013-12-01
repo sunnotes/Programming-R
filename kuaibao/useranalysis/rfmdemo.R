@@ -14,6 +14,7 @@ str(sales)
 
 sales$recency=round(as.numeric(difftime(Sys.Date(),sales[,3],units="days")) )
 
+install.packages('gregmisc')
 library(gregmisc)
 
 ##if you have existing sales data you need to just shape it in this format
@@ -36,6 +37,9 @@ names(salesR)=c("CustomerId","Recency")
 
 ##Merging R,F,M
 
+
+head(salesF)
+head(salesR)
 test1=merge(salesF,salesR,"CustomerId")
 
 salesRFM=merge(salesM,test1,"CustomerId")
