@@ -76,3 +76,6 @@ users[1:50,]
 users[10000:10050,]
 
 save(users,file ='kuaibao/data/users4rfm.RData')
+
+
+head(users)

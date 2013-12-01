@@ -4,7 +4,6 @@ library(RODBC)
 conn <- odbcConnect('kuaibao')
 
 
-
 ###########messages data analysis
 messages <- sqlQuery(conn,'
    SELECT  userid,msgtime ,msg_type,type_detail,content
@@ -12,14 +11,17 @@ messages <- sqlQuery(conn,'
 dim(messages)
 head(messages)
 
-
 save(messages,file ='kuaibao/data/messages.RData')
-
 
 user1 <- sqlQuery(conn,' SELECT id as userid ,date(subscribe_time) as subscribeday
   FROM USER ORDER BY subscribe_time  ',nullstring = NA_character_, na.strings = "NA")
 dim(user1)
 head(user1)
+
+#最后访问时间
+lastdate <- sqlQuery(conn,' SELECT userid , DATE(MAX(msgtime)) AS lastday  FROM message GROUP BY userid  ',nullstring = NA_character_, na.strings = "NA")
+dim(lastdate)
+head(lastdate)
 
 
 ##所有
@@ -27,7 +29,6 @@ Total <- sqlQuery(conn,'
 SELECT  userid, COUNT(*) AS Totalmsgcnt ,  COUNT(DISTINCT(DATE(msgtime))) AS Totaldaycnt  FROM message WHERE DATE(msgtime) >= \'2013-07-23\' AND userid <>0   GROUP BY userid   ORDER BY userid  ',nullstring = NA_character_, na.strings = "NA")
 dim(Total)
 head(Total)
-
 
 
 ##近60天
@@ -61,11 +62,8 @@ dim(D7)
 head(D7)
 
 ##业余的代码，后期封装成函数
-users<-merge(merge(merge(merge(merge(user1,Total,all=TRUE),D60,all=TRUE),D30,all=TRUE),D15,all=TRUE),D7,all=TRUE)
+users<-merge(merge(merge(merge(merge(merge(user1,lastdate,all = TRUE),Total,all=TRUE),D60,all=TRUE),D30,all=TRUE),D15,all=TRUE),D7,all=TRUE)
 
-users[1:50,]
-users$subscribeday[is.na(users$subscribeday)]<-'2013-07-21'
-users[is.na(users)] <- 0
 users[1:50,]
 users[10000:10050,]
 
