@@ -2,6 +2,16 @@ install.packages('DMwR')
 
 library(DMwR)
 
+setwd('/mnt/hgfs/WorkSpaces/Programming-R/')
+
+algae <- read.table('Data_Mining_with_R_Learning_by_Case_Studies/Analysis.txt',
+                    header=F,
+                    dec='.',
+                    col.names=c('season','size','speed','mxPH','mnO2','Cl',
+                                'NO3','NH4','oPO4','PO4','Chla','a1','a2','a3','a4',
+                                'a5','a6','a7'),
+                    na.strings=c('XXXXXXX'))
+
 head(algae)
 
 summary(algae)
@@ -10,7 +20,7 @@ hist(algae$mxPH,pro = T)
 
 hist(algae$mxPH)
 
-library(car)
+library('car')
 
 # save current graphical parameters
 opar <- par(no.readonly = TRUE)
@@ -56,8 +66,8 @@ algae[algae$NH4 > 19000,]
 library(lattice)
 print(bwplot(size ~ a1, data=algae,ylab='River Size',xlab='Algal A1'))
 
-
-library(Hmisc)
+install.packages("Hmisc")
+library("Hmisc")
 print(bwplot(size ~ a1, data=algae,panel=panel.bpplot, 
              probs=seq(.01,.49,by=.01), datadensity=TRUE,
              ylab='River Size',xlab='Algal A1'))
