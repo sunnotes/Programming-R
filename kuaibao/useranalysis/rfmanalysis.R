@@ -76,3 +76,7 @@ usersRFM[which(km3$cluster == 3),]$rankM <- 'HIGH'
 
 #抽取结果
 head(usersRFM)
+table(usersRFM[,5:7])
+#第一类
+dim(usersRFM[which(usersRFM$rankR == 'HIGH'& usersRFM$rankF == 'HIGH'& usersRFM$rankM == 'HIGH'),])
+
