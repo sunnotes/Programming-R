@@ -78,5 +78,9 @@ usersRFM[which(km3$cluster == 3),]$rankM <- 'HIGH'
 head(usersRFM)
 table(usersRFM[,5:7])
 #第一类
+<<<<<<< HEAD
 dim(usersRFM[which(rankR == 'HIGH'&rankF == 'HIGH')])
+=======
+dim(usersRFM[which(usersRFM$rankR == 'HIGH'& usersRFM$rankF == 'HIGH'& usersRFM$rankM == 'HIGH'),])
+>>>>>>> f4a09549be0b0ad35c7d7a69f7710fd2e5410684
 
