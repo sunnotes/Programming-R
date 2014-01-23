@@ -28,3 +28,6 @@ mean(data[which(data$Month == 6) ,]$Temp ,na.rm=TRUE)
 
 
 max(data[which(data$Month == 5) ,]$Ozone ,na.rm=TRUE)
+
+
+setwd(oldwd)
