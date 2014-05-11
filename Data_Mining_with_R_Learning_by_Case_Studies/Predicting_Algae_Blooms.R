@@ -116,7 +116,6 @@ data(algae)
 algae <- algae[-manyNAs(algae),]
 algae <- centralImputation(algae)
 
-
 cor(algae[,4:18],use="complete.obs")
 
 
