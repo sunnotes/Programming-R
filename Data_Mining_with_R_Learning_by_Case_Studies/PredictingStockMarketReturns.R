@@ -4,7 +4,7 @@
 library(DMwR)
 data(GSPC)
 
-
+head(GSPC)
 
 ###################################################
 ### Handling time dependent data in R
@@ -45,7 +45,7 @@ coredata(mts)
 ###################################################
 ### Reading the data from the CSV file
 ###################################################
-GSPC <- as.xts(read.zoo('sp500.csv',header=T))
+GSPC <- as.xts(read.zoo('Data_Mining_with_R_Learning_by_Case_Studies/sp500.csv',header=T))
 
 
 ###################################################
