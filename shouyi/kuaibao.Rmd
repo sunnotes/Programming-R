@@ -55,7 +55,7 @@ tags: [ 余额宝 , 统计 ]
 
 ```{r prepare data }
 
-load(file ='kuaibao.RData')
+load(file ='shouyi/kuaibao.RData')
 #install.packages("ggplot2")
 #install.packages('timeDate')
 library(ggplot2)
