@@ -10,6 +10,8 @@
 vars <- c("mpg", "hp", "wt")
 head(mtcars[vars])
 
+head(mtcars)
+
 # Listing 7.1 - descriptive stats via summary
 
 summary(mtcars[vars])
@@ -46,8 +48,8 @@ describe(mtcars[vars])
 
 # Listing 7.6 - Descriptive statistics by group with aggregate()
 
-aggregate(mtcars[vars], by = list(am = mtcars$am), mean)
-aggregate(mtcars[vars], by = list(am = mtcars$am), sd)
+
+
 
 # Listing 7.7 - Descriptive statistics by group via by()
 
