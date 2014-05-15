@@ -10,7 +10,7 @@
 vars <- c("mpg", "hp", "wt")
 head(mtcars[vars])
 
-head(mtcars)
+
 
 # Listing 7.1 - descriptive stats via summary
 
